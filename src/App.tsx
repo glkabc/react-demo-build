@@ -1,25 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FullPageLoading } from 'components';
+import { useToken } from 'hooks';
+
+const AuthenticatedApp = React.lazy(
+  () => import(/* webpackPrefetch: true */ './authenticated-app'),
+);
+
+const UnAuthenticatedApp = React.lazy(
+  () => import(/* webpackPrefetch: true */ './unauthenticated-app'),
+);
+
 
 function App() {
+  const token = useToken();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Suspense fallback={<FullPageLoading />}>
+      {token ? <AuthenticatedApp /> : <UnAuthenticatedApp />}
+    </React.Suspense>
   );
 }
 

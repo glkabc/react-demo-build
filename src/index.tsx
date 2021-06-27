@@ -1,12 +1,24 @@
+import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { CssBaseline } from '@material-ui/core';
+import { enableAllPlugins } from 'immer';
+
+import App from './App';
+import StyleReset from 'styles/style-reset';
+import AppProvider from 'contexts';
+import 'mocks';
+
+enableAllPlugins();
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StyleReset />
+    <CssBaseline />
+    <AppProvider>
+      <App />
+    </AppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
